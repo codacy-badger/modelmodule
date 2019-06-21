@@ -28,10 +28,10 @@ class MLModel:
     def load_newest_model(self):
         current_path = os.path.dirname(__file__)
         model_folder = 'models/' 
-        model_path = os.path.join(current_path, model_folder)
+        model_folder = os.path.join(current_path, model_folder)
 
-        os.chdir(model_path)
-        files = sorted(filter(os.path.isfile, os.listdir(model_path)), key=os.path.getmtime)
+        os.chdir(model_folder)
+        files = sorted(filter(os.path.isfile, os.listdir(model_folder)), key=os.path.getmtime)
         files.reverse()
 
         model_path = files[0]
