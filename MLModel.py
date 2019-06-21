@@ -18,8 +18,8 @@ class MLModel:
     def predict(self,features=None):
         if(features is None ):
             raise ValueError("input must have at least 1 object")
-        elif(np.shape(features)[1] != 4):
-            raise ValueError("input must have 4 features")
+        elif(np.shape(features)[1] != self.model.n_features_):
+            raise ValueError(f"input must have {self.model.n_features_} features")
 
         result = self.model.predict(features)
 
