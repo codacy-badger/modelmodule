@@ -19,7 +19,8 @@ class MLModel:
         if(features is None ):
             raise ValueError("input must have at least 1 object")
         elif(np.shape(features)[1] != self.model.n_features_):
-            raise ValueError(f"input must have {self.model.n_features_} features")
+            raise ValueError(f"input must have {self.model.n_features_} \
+            features")
 
         result = self.model.predict(features)
 
@@ -31,7 +32,8 @@ class MLModel:
         model_folder = os.path.join(current_path, model_folder)
 
         os.chdir(model_folder)
-        files = sorted(filter(os.path.isfile, os.listdir(model_folder)), key=os.path.getmtime)
+        files = sorted(filter(os.path.isfile, os.listdir(model_folder)), 
+            key=os.path.getmtime)
         files.reverse()
 
         model_path = files[0]
