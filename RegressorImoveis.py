@@ -1,5 +1,6 @@
 import pickle
 import os
+import numpy as np
 
 class RegressorImoveis:
 
@@ -18,12 +19,10 @@ class RegressorImoveis:
 
     def predict(self,features=None):
         if(features is None ):
-            raise ValueError("entrada deve conter ao menos um objeto")
-        elif(features_arr.shape[1] != 4):
-            raise ValueError("entrada deve conter 4 colunas")
+            raise ValueError("input must have at least 1 object")
+        elif(np.shape(features)[1] != 4):
+            raise ValueError("input must have 4 features")
 
         result = self.model.predict(features)
-
-        print(result)
 
         return result
