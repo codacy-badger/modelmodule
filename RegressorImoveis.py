@@ -7,12 +7,10 @@ class RegressorImoveis:
     def __init__(self,model_path=None):
         ''' Constructor '''
         if(model_path is None):
-            current_path = os.path.dirname(__file__)
-            rel_path = 'models/imoveis_df_random_forest_regressor.pkl' 
-            model_path = os.path.join(current_path, rel_path)
-
-        with open(model_path, 'rb') as handle:
-            self.model = pickle.load(handle)
+            self.load_newest_model()
+        else:
+            with open(model_path, 'rb') as handle:
+                self.model = pickle.load(handle)
 
     def info(self):
         print(self.model)
@@ -26,3 +24,17 @@ class RegressorImoveis:
         result = self.model.predict(features)
 
         return result
+
+    def load_newest_model(self):
+        current_path = os.path.dirname(__file__)
+        model_folder = 'models/' 
+        model_path = os.path.join(current_path, model_folder)
+
+        os.chdir(model_path)
+        files = sorted(filter(os.path.isfile, os.listdir(model_path)), key=os.path.getmtime)
+        files.reverse()
+
+        model_path = files[0]
+
+        with open(model_path, 'rb') as handle:
+            self.model = pickle.load(handle)
