@@ -2,7 +2,7 @@ import pickle
 import os
 import numpy as np
 
-class RegressorImoveis:
+class MLModel:
 
     def __init__(self,model_path=None):
         ''' Constructor '''
