@@ -15,11 +15,8 @@ Example usage:
     model = MLModel()
     result = model.predict(DATA)
 
-DATA may be 1 to n objects
+DATA is a python linst, and may contain from 1 to n objects
 
-Todo:
-    * apply PEP8
-    * Apply PEP257
 """
 
 import pickle
@@ -30,14 +27,18 @@ import numpy as np
 class MLModel:
     """
     Generic Wrapper class for loading any kind of scikit-learn model or pipeline.
-
+    
     Attributes:
-        model_path (str): full path of the model pickle file (.pkl)
-
+            model (sklearn model): pre-trained model loaded from storage
     """
 
     def __init__(self,model_path=None):
-        ''' Constructor '''
+        """__init__ method.
+
+        Args:
+            model_path (str): full path of the model pickle file (.pkl)
+
+        """
         if(model_path is None):
             self.load_newest_model()
         else:
@@ -45,9 +46,26 @@ class MLModel:
                 self.model = pickle.load(handle)
 
     def info(self):
+        """Prints the pre-trained model information, including hyperparameter setting.
+
+        Returns:
+            None
+        """
         print(self.model)
 
     def predict(self,features=None):
+        """Predict regression or classification target for given features.
+        
+        Args:
+            features (obj_vector): array of feature arrays, enabling prediction of 1 to n objects
+        
+        Returns:
+            prediction (array): array of predictions, contains 1 to n objects
+
+        Raises:
+            ValueError: If input is empty or has different number of features than training.
+        """
+
         if(features is None ):
             raise ValueError("input must have at least 1 object")
         elif(np.shape(features)[1] != self.model.n_features_):
@@ -58,6 +76,15 @@ class MLModel:
         return result
 
     def load_newest_model(self):
+        """Default init fallback. 
+        In case no path was provided, tries to load newest model from models folder.
+        
+        Returns:
+            None, model is loaded to the class model attribute
+
+        Raises:
+            FileNotFoundError: If models folder is empty
+        """
         current_path = os.path.dirname(__file__)
         model_folder = 'models/' 
         model_folder = os.path.join(current_path, model_folder)
@@ -66,7 +93,9 @@ class MLModel:
         files = sorted(filter(os.path.isfile, os.listdir(model_folder)), 
             key=os.path.getmtime)
         files.reverse()
-        model_path = files[0]
-
-        with open(model_path, 'rb') as handle:
-            self.model = pickle.load(handle)
+        if(len(files) > 0):
+            model_path = files[0]
+            with open(model_path, 'rb') as handle:
+                self.model = pickle.load(handle)
+        else:
+            raise FileNotFoundError("no default model to load, models folder is empty")
