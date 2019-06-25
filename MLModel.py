@@ -1,8 +1,40 @@
+# -*- coding: utf-8 -*-
+"""
+This module loads scikit-learn pre-trained machine learning models and 
+pipelines for production environments. Models are loaded using the
+pickle module.
+
+Any model is fit for loading, make sure the prediction input has the same 
+number of features as in the training process.
+
+This module does not deal with request queues and parallel processing. 
+That should be managed by other module (web server etc).
+
+Example usage:
+    from modelmodule.MLModel import MLModel
+    model = MLModel()
+    result = model.predict(DATA)
+
+DATA may be 1 to n objects
+
+Todo:
+    * apply PEP8
+    * Apply PEP257
+"""
+
 import pickle
 import os
 import numpy as np
 
+
 class MLModel:
+    """
+    Generic Wrapper class for loading any kind of scikit-learn model or pipeline.
+
+    Attributes:
+        model_path (str): full path of the model pickle file (.pkl)
+
+    """
 
     def __init__(self,model_path=None):
         ''' Constructor '''
@@ -23,7 +55,6 @@ class MLModel:
             features")
 
         result = self.model.predict(features)
-
         return result
 
     def load_newest_model(self):
@@ -35,7 +66,6 @@ class MLModel:
         files = sorted(filter(os.path.isfile, os.listdir(model_folder)), 
             key=os.path.getmtime)
         files.reverse()
-
         model_path = files[0]
 
         with open(model_path, 'rb') as handle:
