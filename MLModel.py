@@ -58,7 +58,7 @@ class MLModel:
         
         Args:
             features (obj_vector): array of feature arrays, enabling prediction of 1 to n objects
-        
+
         Returns:
             prediction (array): array of predictions, contains 1 to n objects
 
