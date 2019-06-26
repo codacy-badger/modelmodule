@@ -1,13 +1,13 @@
 # -*- coding: utf-8 -*-
 """
-This module loads scikit-learn pre-trained machine learning models and 
+This module loads scikit-learn pre-trained machine learning models and
 pipelines for production environments. Models are loaded using the
 pickle module.
 
-Any model is fit for loading, make sure the prediction input has the same 
+Any model is fit for loading, make sure the prediction input has the same
 number of features as in the training process.
 
-This module does not deal with request queues and parallel processing. 
+This module does not deal with request queues and parallel processing.
 That should be managed by other module (web server etc).
 
 Example usage:
@@ -86,11 +86,11 @@ class MLModel:
             FileNotFoundError: If models folder is empty
         """
         current_path = os.path.dirname(__file__)
-        model_folder = 'models/' 
+        model_folder = 'models/'
         model_folder = os.path.join(current_path, model_folder)
 
         os.chdir(model_folder)
-        files = sorted(filter(os.path.isfile, os.listdir(model_folder)), 
+        files = sorted(filter(os.path.isfile, os.listdir(model_folder)),
             key=os.path.getmtime)
         files.reverse()
         if(len(files) > 0):

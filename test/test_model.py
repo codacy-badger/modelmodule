@@ -6,7 +6,7 @@ import random
 # Provides wrong path and checks that the module is not loading any default or newest model
 def test_load_model_with_wrong_path():
     with pytest.raises(Exception):
-        model = MLModel('WRONG PATH')
+        MLModel('WRONG PATH')
 
 # Provides right path (tester dependant) and asserts if module could load the model
 def test_load_model_with_right_path():
@@ -30,7 +30,7 @@ area = 89
 rooms = 3.0
 
 # input provided is 1 object, wrong col number
-def test_predict_without_input():
+def test_predict_with_wrong_input():
     model = MLModel()
     with pytest.raises(ValueError):
         model.predict([[area,rooms,lat]])
