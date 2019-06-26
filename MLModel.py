@@ -27,7 +27,7 @@ import numpy as np
 class MLModel:
     """
     Generic Wrapper class for loading any kind of scikit-learn model or pipeline.
-    
+
     Attributes:
             model (sklearn model): pre-trained model loaded from storage
     """
@@ -55,7 +55,7 @@ class MLModel:
 
     def predict(self,features=None):
         """Predict regression or classification target for given features.
-        
+
         Args:
             features (obj_vector): array of feature arrays, enabling prediction of 1 to n objects
 
