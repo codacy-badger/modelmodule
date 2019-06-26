@@ -76,9 +76,9 @@ class MLModel:
         return result
 
     def load_newest_model(self):
-        """Default init fallback. 
+        """Default init fallback.
         In case no path was provided, tries to load newest model from models folder.
-        
+
         Returns:
             None, model is loaded to the class model attribute
 
